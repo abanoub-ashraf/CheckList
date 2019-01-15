@@ -1,11 +1,3 @@
-//
-//  AppDelegate.swift
-//  CheckList
-//
-//  Created by Abanoub Ashraf on 1/14/19.
-//  Copyright © 2019 Abanoub Ashraf. All rights reserved.
-//
-
 import UIKit
 
 @UIApplicationMain

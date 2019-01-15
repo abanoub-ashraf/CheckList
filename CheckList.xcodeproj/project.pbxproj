@@ -7,17 +7,19 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2E05A40B21EE6A28001C6331 /* TestVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E05A40A21EE6A28001C6331 /* TestVC.swift */; };
 		2EEA188421ED02870034EBDC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EEA188321ED02870034EBDC /* AppDelegate.swift */; };
-		2EEA188621ED02870034EBDC /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EEA188521ED02870034EBDC /* ViewController.swift */; };
+		2EEA188621ED02870034EBDC /* CheckListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EEA188521ED02870034EBDC /* CheckListVC.swift */; };
 		2EEA188921ED02870034EBDC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2EEA188721ED02870034EBDC /* Main.storyboard */; };
 		2EEA188B21ED028A0034EBDC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2EEA188A21ED028A0034EBDC /* Assets.xcassets */; };
 		2EEA188E21ED028A0034EBDC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2EEA188C21ED028A0034EBDC /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2E05A40A21EE6A28001C6331 /* TestVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestVC.swift; sourceTree = "<group>"; };
 		2EEA188021ED02870034EBDC /* CheckList.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CheckList.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2EEA188321ED02870034EBDC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		2EEA188521ED02870034EBDC /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		2EEA188521ED02870034EBDC /* CheckListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckListVC.swift; sourceTree = "<group>"; };
 		2EEA188821ED02870034EBDC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		2EEA188A21ED028A0034EBDC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2EEA188D21ED028A0034EBDC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -55,7 +57,8 @@
 			isa = PBXGroup;
 			children = (
 				2EEA188321ED02870034EBDC /* AppDelegate.swift */,
-				2EEA188521ED02870034EBDC /* ViewController.swift */,
+				2EEA188521ED02870034EBDC /* CheckListVC.swift */,
+				2E05A40A21EE6A28001C6331 /* TestVC.swift */,
 				2EEA188721ED02870034EBDC /* Main.storyboard */,
 				2EEA188A21ED028A0034EBDC /* Assets.xcassets */,
 				2EEA188C21ED028A0034EBDC /* LaunchScreen.storyboard */,
@@ -135,7 +138,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2EEA188621ED02870034EBDC /* ViewController.swift in Sources */,
+				2EEA188621ED02870034EBDC /* CheckListVC.swift in Sources */,
+				2E05A40B21EE6A28001C6331 /* TestVC.swift in Sources */,
 				2EEA188421ED02870034EBDC /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -285,6 +289,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = U6JX84M9ZS;
 				INFOPLIST_FILE = CheckList/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -303,6 +308,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = U6JX84M9ZS;
 				INFOPLIST_FILE = CheckList/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
