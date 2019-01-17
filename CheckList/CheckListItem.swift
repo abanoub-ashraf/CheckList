@@ -7,4 +7,9 @@ class CheckListItem {
     var text = ""
     var checked = false
     
+    // the model should handle its own statue
+    func toggleChecked() {
+        checked = !checked
+    }
+    
 }
