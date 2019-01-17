@@ -2,14 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="57fc6b16-4e10-4d90-ac7b-9ea373a44dce" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CheckList.xcodeproj/project.pbxproj" beforeDir="false" afterPath="$PROJECT_DIR$/CheckList.xcodeproj/project.pbxproj" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CheckList.xcodeproj/project.xcworkspace/xcuserdata/Abanoub.xcuserdatad/UserInterfaceState.xcuserstate" beforeDir="false" afterPath="$PROJECT_DIR$/CheckList.xcodeproj/project.xcworkspace/xcuserdata/Abanoub.xcuserdatad/UserInterfaceState.xcuserstate" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CheckList.xcodeproj/xcuserdata/Abanoub.xcuserdatad/xcschemes/xcschememanagement.plist" beforeDir="false" afterPath="$PROJECT_DIR$/CheckList.xcodeproj/xcuserdata/Abanoub.xcuserdatad/xcschemes/xcschememanagement.plist" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CheckList/AppDelegate.swift" beforeDir="false" afterPath="$PROJECT_DIR$/CheckList/AppDelegate.swift" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CheckList/Base.lproj/Main.storyboard" beforeDir="false" afterPath="$PROJECT_DIR$/CheckList/Base.lproj/Main.storyboard" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CheckList/Info.plist" beforeDir="false" afterPath="$PROJECT_DIR$/CheckList/Info.plist" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CheckList/ViewController.swift" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CheckList/CheckListVC.swift" beforeDir="false" afterPath="$PROJECT_DIR$/CheckList/CheckListVC.swift" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -23,8 +17,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/CheckList/CheckListVC.swift">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="440">
-              <caret line="22" column="40" selection-start-line="22" selection-start-column="40" selection-end-line="22" selection-end-column="40" />
+            <state relative-caret-position="180">
+              <caret line="9" column="45" selection-start-line="9" selection-start-column="45" selection-end-line="9" selection-end-column="45" />
             </state>
           </provider>
         </entry>
@@ -52,7 +46,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Cidr.FilesView" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -69,7 +63,7 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
+      <pane id="Cidr.FilesView" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -114,17 +108,17 @@
       <workItem from="1547564601109" duration="1842000" />
       <workItem from="1547570633907" duration="539000" />
       <workItem from="1547574827514" duration="672000" />
+      <workItem from="1547728562482" duration="301000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="3053000" />
+    <option name="totallyTimeSpent" value="3354000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1280" height="740" extended-state="0" />
-    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25767368" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.26171243" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Favorites" order="3" side_tool="true" />
@@ -162,8 +156,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/CheckList/CheckListVC.swift">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="440">
-          <caret line="22" column="40" selection-start-line="22" selection-start-column="40" selection-end-line="22" selection-end-column="40" />
+        <state relative-caret-position="180">
+          <caret line="9" column="45" selection-start-line="9" selection-start-column="45" selection-end-line="9" selection-end-column="45" />
         </state>
       </provider>
     </entry>
