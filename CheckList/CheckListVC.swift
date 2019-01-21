@@ -5,7 +5,23 @@ class CheckListVC: UITableViewController {
     // integrate the Model todoList's class in this Controller class
     var todoList: TodoList
     
-    // intializer for the TodoList's object
+    // add new checklist item to the table view
+    @IBAction func addItem(_ sender: Any) {
+        // create new row for the new indexPath we'll create, then add it to the end of the table
+        // the table gets its size from the size of the todos array so that's the end of the table
+        let newRowIndex = todoList.todos.count
+        // _ means idc about the object returns from this method just call it and that's it
+        _ = todoList.newTodo()
+        // create new indexPath for the new item, to add it to the table view
+        // passing the new row we created to it as the postion
+        let indexPath = IndexPath(row: newRowIndex, section: 0)
+        // inserting function requres an array of indexPaths
+        let indexPaths = [indexPath]
+        // now insert the new index path we created
+        tableView.insertRows(at: indexPaths, with: .automatic)
+    }
+    
+    // initializer for the TodoList's object
     required init?(coder aDecoder: NSCoder) {
         todoList = TodoList()
         super.init(coder: aDecoder)
@@ -13,6 +29,9 @@ class CheckListVC: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // access the navigation bar in cide
+        navigationController?.navigationBar.prefersLargeTitles = true
     }
     
     //MARK: - UITableViewDataSource Methods
