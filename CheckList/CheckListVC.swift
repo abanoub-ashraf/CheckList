@@ -34,7 +34,9 @@ class CheckListVC: UITableViewController {
         navigationController?.navigationBar.prefersLargeTitles = true
     }
     
-    //MARK: - UITableViewDataSource Methods
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    
+    //MARK: - UITableViewDataSource Methods:
     /////////////////////////////////////////
     
     // how many rows to display
@@ -56,7 +58,9 @@ class CheckListVC: UITableViewController {
         return cell
     }
     
-    //MARK: - UITableViewDelegate Methods
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+   
+    //MARK: - UITableViewDelegate Methods:
     ///////////////////////////////////////
     
     // interact with the cell when it got selected
@@ -81,6 +85,8 @@ class CheckListVC: UITableViewController {
         // the delete method requires array of indexPaths too
         tableView.deleteRows(at: indexPaths, with: .automatic)
     }
+    
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
     // configure the text of the label in each cell
     // pass the checklist item to it to get its text
