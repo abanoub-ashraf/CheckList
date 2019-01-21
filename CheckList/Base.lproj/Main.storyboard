@@ -33,9 +33,9 @@
                                         </label>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="IBE-DN-LhZ" firstAttribute="top" secondItem="pQd-CW-V46" secondAttribute="top" constant="11" id="2r1-Fu-RN2"/>
+                                        <constraint firstItem="IBE-DN-LhZ" firstAttribute="top" secondItem="pQd-CW-V46" secondAttribute="top" priority="750" constant="11" id="2r1-Fu-RN2"/>
                                         <constraint firstItem="IBE-DN-LhZ" firstAttribute="leading" secondItem="pQd-CW-V46" secondAttribute="leading" constant="20" symbolic="YES" id="OCN-jA-GlY"/>
-                                        <constraint firstAttribute="bottom" secondItem="IBE-DN-LhZ" secondAttribute="bottom" constant="11.5" id="WsO-oM-Z9B"/>
+                                        <constraint firstAttribute="bottom" secondItem="IBE-DN-LhZ" secondAttribute="bottom" priority="750" constant="11.5" id="WsO-oM-Z9B"/>
                                         <constraint firstAttribute="trailing" secondItem="IBE-DN-LhZ" secondAttribute="trailing" constant="20" symbolic="YES" id="clS-aa-KWk"/>
                                     </constraints>
                                 </tableViewCellContentView>

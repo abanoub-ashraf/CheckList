@@ -30,9 +30,28 @@ class TodoList {
     // manage adding new items
     func newTodo() -> CheckListItem {
         let item = CheckListItem()
-        item.text = "New todo item"
+        // set random title to the text of each new item
+        item.text = randomTitle()
+        // make every new item is checked by default
+        item.checked = true
         todos.append(item)
         return item
+    }
+    
+    // generate random titles for the each new item
+    private func randomTitle() -> String {
+        // array of some titles
+        var titles = [
+            "New todo item",
+            "Generic todo",
+            "Fill me out",
+            "I need something to do",
+            "Much todo about nothing"
+        ]
+        // generate random number in range from 0 to the size of the titles array
+        let randomNumber = Int.random(in: 0...titles.count - 1)
+        // then return any title of the array based on the random generated nubmer
+        return titles[randomNumber]
     }
     
 }

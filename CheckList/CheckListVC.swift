@@ -72,6 +72,16 @@ class CheckListVC: UITableViewController {
         }
     }
     
+    // delete the cell when it gets swiped
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        // delete from the model itself using the indexPath
+        todoList.todos.remove(at: indexPath.row)
+        // now delete from the table view on screen using same indexPath ofc
+        let indexPaths = [indexPath]
+        // the delete method requires array of indexPaths too
+        tableView.deleteRows(at: indexPaths, with: .automatic)
+    }
+    
     // configure the text of the label in each cell
     // pass the checklist item to it to get its text
     func configureText(for cell: UITableViewCell, with item: CheckListItem) {
@@ -88,10 +98,10 @@ class CheckListVC: UITableViewController {
     func configureCheckMark(for cell: UITableViewCell, with item: CheckListItem) {
         if item.checked {
             // if checked was true, remove the check mark from the cell
-            cell.accessoryType = .none
+            cell.accessoryType = .checkmark
         } else {
             // if it was not true, put it on the cell
-            cell.accessoryType = .checkmark
+            cell.accessoryType = .none
         }
         // then change the statue of the checked attibute in the item model class cause the cell's clicked
         item.toggleChecked()
