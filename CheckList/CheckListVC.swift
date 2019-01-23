@@ -15,7 +15,7 @@ class CheckListVC: UITableViewController {
         // create new indexPath for the new item, to add it to the table view
         // passing the new row we created to it as the postion
         let indexPath = IndexPath(row: newRowIndex, section: 0)
-        // inserting function requres an array of indexPaths
+        // inserting function requires an array of indexPaths
         let indexPaths = [indexPath]
         // now insert the new index path we created
         tableView.insertRows(at: indexPaths, with: .automatic)
@@ -98,7 +98,7 @@ class CheckListVC: UITableViewController {
             label.text = item.text
         }
     }
-    
+
     // confiure the checkmarks in each cell
     // pass the checklist item to it to toggle its statue
     func configureCheckMark(for cell: UITableViewCell, with item: CheckListItem) {
