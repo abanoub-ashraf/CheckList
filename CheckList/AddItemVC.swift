@@ -2,6 +2,8 @@ import UIKit
 
 class AddItemVC: UITableViewController {
     
+    @IBOutlet weak var cancelBarButton: UIBarButtonItem!
+    @IBOutlet weak var addBarButton: UIBarButtonItem!
     @IBOutlet weak var textField: UITextField!
     
     override func viewDidLoad() {
@@ -21,7 +23,6 @@ class AddItemVC: UITableViewController {
 
     @IBAction func done(_ sender: Any) {
         navigationController?.popViewController(animated: true)
-        print("Contents of the text field \(textField)")
     }
     
     // dismiss the current VC
@@ -41,9 +42,30 @@ class AddItemVC: UITableViewController {
 extension AddItemVC: UITextFieldDelegate {
     
     // make the keyboard goes away once user click on done key
+    // Asks the delegate if the text field should process the pressing of the return button.
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return false
+    }
+    
+    // when the user taps a key on the keyboard this method will get called
+    // this method manipulates what the user is typing before it's reflected in the actual text feild
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        // guard those two if they are empty (return nil), else return false
+        guard let oldText = textField.text,
+              let stringRange = Range(range, in: oldText) else {
+                return false
+        }
+        // replace the old text if there was any, with a new one and store it in this variable
+        let newText = oldText.replacingCharacters(in: stringRange, with: string)
+        if newText.isEmpty {
+            // disable the add button if there was no text entered
+            addBarButton.isEnabled = false
+        } else {
+            // enable it if the user typed a text
+            addBarButton.isEnabled = true
+        }
+        return true
     }
     
 }
