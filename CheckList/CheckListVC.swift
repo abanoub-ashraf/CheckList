@@ -113,4 +113,43 @@ class CheckListVC: UITableViewController {
         item.toggleChecked()
     }
     
+    // a method that's called when you wanna go from VC to another
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // to diffrentiate every single segue from the other, if there was many
+        if segue.identifier == "AddItemSegue" {
+            // as? cause destination returns a UI which must be casted
+            if let AddItemViewController = segue.destination as? AddItemVC {
+                // set this CheckListVC to be the delegate for AddItemVC
+                AddItemViewController.delegate = self
+            }
+        }
+    }
+    
+}
+
+// make this class conform to that protocol and implement its methods
+// this VC will implment these 2 methods that will be called in the AddItemVC
+extension CheckListVC: AddItemViewControllerDelegate {
+    
+    //  dismis the current VC that will call this method which is AddItemVC
+    func addItemViewControllerDidCancel(_ controller: AddItemVC) {
+        navigationController?.popViewController(animated: true)
+    }
+    
+    // add the new item to the table view of this VC when this method is called from the other one
+    func addItemViewController(_ controller: AddItemVC, didFinishAdding item: CheckListItem) {
+        // the new position for the new item
+        let rowIndex = todoList.todos.count
+        // add the item to the array in the model
+        todoList.todos.append(item)
+        // the new indexPath for the new item
+        let indexPath = IndexPath(row: rowIndex, section: 0)
+        // array for the insert table view's method
+        let indexPaths = [indexPath]
+        // add the item to the table view
+        tableView.insertRows(at: indexPaths, with: .automatic)
+        // then dismiss the current VC and go back to the prevois one
+        navigationController?.popViewController(animated: true)
+    }
+    
 }

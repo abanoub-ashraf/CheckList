@@ -1,6 +1,15 @@
 import UIKit
 
+// protocol that only works on classes
+protocol AddItemViewControllerDelegate: class {
+    func addItemViewControllerDidCancel(_ controller: AddItemVC)
+    func addItemViewController(_ controller: AddItemVC, didFinishAdding item: CheckListItem)
+}
+
 class AddItemVC: UITableViewController {
+    
+    // delegate for our protocol to be able to call its function from this VC
+    weak var delegate: AddItemViewControllerDelegate?
     
     @IBOutlet weak var cancelBarButton: UIBarButtonItem!
     @IBOutlet weak var addBarButton: UIBarButtonItem!
@@ -23,12 +32,22 @@ class AddItemVC: UITableViewController {
 
     @IBAction func done(_ sender: Any) {
         navigationController?.popViewController(animated: true)
+        // create new item and add it
+        let item = CheckListItem()
+        if let textFieldText = textField.text {
+            item.text = textFieldText
+        }
+        item.checked = false
+        // call this method to add the item we created to the previous VC
+        delegate?.addItemViewController(self, didFinishAdding: item)
     }
     
     // dismiss the current VC
     @IBAction func cancel(_ sender: Any) {
         // pop the current VC and go back to the previous one
         navigationController?.popViewController(animated: true)
+        // call this method to dismiss this VC and go back to the previous one
+        delegate?.addItemViewControllerDidCancel(self)
     }
     
     // determine whether the row can be selected or not
