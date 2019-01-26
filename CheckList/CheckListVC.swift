@@ -102,12 +102,13 @@ class CheckListVC: UITableViewController {
     // confiure the checkmarks in each cell
     // pass the checklist item to it to toggle its statue
     func configureCheckMark(for cell: UITableViewCell, with item: CheckListItem) {
+        guard let checkmark = cell.viewWithTag(1001) as? UILabel else {
+            return
+        }
         if item.checked {
-            // if checked was true, remove the check mark from the cell
-            cell.accessoryType = .checkmark
+            checkmark.text = "√"
         } else {
-            // if it was not true, put it on the cell
-            cell.accessoryType = .none
+            checkmark.text = ""
         }
         // then change the statue of the checked attibute in the item model class cause the cell's clicked
         item.toggleChecked()

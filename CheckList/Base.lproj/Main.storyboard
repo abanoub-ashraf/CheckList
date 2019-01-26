@@ -18,25 +18,34 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="checkmark" indentationWidth="10" reuseIdentifier="CheckListItem" id="sV9-vt-nhO">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="detailDisclosureButton" indentationWidth="10" reuseIdentifier="CheckListItem" id="sV9-vt-nhO">
                                 <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="sV9-vt-nhO" id="pQd-CW-V46">
-                                    <rect key="frame" x="0.0" y="0.0" width="335" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="307" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" tag="1000" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IBE-DN-LhZ">
-                                            <rect key="frame" x="20" y="11" width="295" height="21"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" tag="1001" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="√" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fid-Sf-t8v">
+                                            <rect key="frame" x="8" y="8" width="15" height="27.5"/>
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" tag="1000" contentMode="left" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IBE-DN-LhZ">
+                                            <rect key="frame" x="35" y="8" width="264" height="27.5"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="IBE-DN-LhZ" firstAttribute="top" secondItem="pQd-CW-V46" secondAttribute="top" priority="750" constant="11" id="2r1-Fu-RN2"/>
-                                        <constraint firstItem="IBE-DN-LhZ" firstAttribute="leading" secondItem="pQd-CW-V46" secondAttribute="leading" constant="20" symbolic="YES" id="OCN-jA-GlY"/>
-                                        <constraint firstAttribute="bottom" secondItem="IBE-DN-LhZ" secondAttribute="bottom" priority="750" constant="11.5" id="WsO-oM-Z9B"/>
-                                        <constraint firstAttribute="trailing" secondItem="IBE-DN-LhZ" secondAttribute="trailing" constant="20" symbolic="YES" id="clS-aa-KWk"/>
+                                        <constraint firstItem="Fid-Sf-t8v" firstAttribute="leading" secondItem="pQd-CW-V46" secondAttribute="leading" constant="8" id="EPd-ys-MCJ"/>
+                                        <constraint firstItem="IBE-DN-LhZ" firstAttribute="top" secondItem="pQd-CW-V46" secondAttribute="top" constant="8" id="Jdf-Fm-iHg"/>
+                                        <constraint firstItem="Fid-Sf-t8v" firstAttribute="top" secondItem="pQd-CW-V46" secondAttribute="top" constant="8" id="Kxe-Ci-HrO"/>
+                                        <constraint firstAttribute="bottom" secondItem="IBE-DN-LhZ" secondAttribute="bottom" constant="8" id="Pu5-W0-7Ck"/>
+                                        <constraint firstAttribute="bottom" secondItem="Fid-Sf-t8v" secondAttribute="bottom" constant="8" id="kcM-Ku-bub"/>
+                                        <constraint firstItem="IBE-DN-LhZ" firstAttribute="leading" secondItem="Fid-Sf-t8v" secondAttribute="trailing" constant="12" id="m8Z-Fp-VaR"/>
+                                        <constraint firstAttribute="trailing" secondItem="IBE-DN-LhZ" secondAttribute="trailing" constant="8" id="t93-ed-CdK"/>
                                     </constraints>
                                 </tableViewCellContentView>
                             </tableViewCell>
