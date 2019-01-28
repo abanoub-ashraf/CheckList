@@ -117,11 +117,30 @@ class CheckListVC: UITableViewController {
     // a method that's called when you wanna go from VC to another
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // to diffrentiate every single segue from the other, if there was many
+        /** this identifier is for adding new item **/
         if segue.identifier == "AddItemSegue" {
             // as? cause destination returns a UI which must be casted
+            // AddItemViewController is gonna be instance of the destination VC
             if let AddItemViewController = segue.destination as? AddItemVC {
                 // set this CheckListVC to be the delegate for AddItemVC
                 AddItemViewController.delegate = self
+                // assign the data (todoList of this current VC) to the todoList property of that destination
+                AddItemViewController.todoList = todoList
+            }
+            /** this identifier is for editing an existing item **/
+        } else if segue.identifier == "EditItemSegue" {
+            // AddItemViewController is gonna be instance of the destination VC
+            if let AddItemViewController = segue.destination as? AddItemVC {
+                // pass the cell the user tapped on to the second VC
+                // this method returns indexPath, pass the cell to it to get where the user taped
+                if let cell = sender as? UITableViewCell,
+                   let indexPath = tableView.indexPath(for: cell) {
+                    // now get the item of that indexPath
+                    let item = todoList.todos[indexPath.row]
+                    // pass that item to the destination VC's property
+                    AddItemViewController.itemToEdit = item
+                    AddItemViewController.delegate = self
+                }
             }
         }
     }
@@ -152,5 +171,22 @@ extension CheckListVC: AddItemViewControllerDelegate {
         // then dismiss the current VC and go back to the prevois one
         navigationController?.popViewController(animated: true)
     }
+    
+    // update the table row that represent that checklist item
+    func addItemViewController(_ controller: AddItemVC, didFinsihEditing item: CheckListItem) {
+        // search for the item
+        if let index = todoList.todos.index(of: item) {
+            // get the indexPath based on the index we created
+            let indexPath = IndexPath(row: index, section: 0)
+            // get the cell based on that indexPath
+            if let cell = tableView.cellForRow(at: indexPath) {
+                // configure the text of that cell
+                configureText(for: cell, with: item)
+            }
+        }
+        // finally pop the VC ater we're done
+        navigationController?.popViewController(animated: true)
+    }
+    
     
 }

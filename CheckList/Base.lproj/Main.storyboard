@@ -48,6 +48,9 @@
                                         <constraint firstAttribute="trailing" secondItem="IBE-DN-LhZ" secondAttribute="trailing" constant="8" id="t93-ed-CdK"/>
                                     </constraints>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <segue destination="52S-8G-22G" kind="show" identifier="EditItemSegue" trigger="accessoryAction" id="1ty-sk-pul"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -113,7 +116,7 @@
                                 <action selector="cancel:" destination="52S-8G-22G" id="cw4-Y0-rKB"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" enabled="NO" title="Add" id="v54-r8-vQ5">
+                        <barButtonItem key="rightBarButtonItem" enabled="NO" title="Done" id="v54-r8-vQ5">
                             <connections>
                                 <action selector="done:" destination="52S-8G-22G" id="MLo-fd-TNY"/>
                             </connections>
@@ -148,4 +151,7 @@
             <point key="canvasLocation" x="1060" y="-43.628185907046479"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="DWc-aZ-0rj"/>
+    </inferredMetricsTieBreakers>
 </document>

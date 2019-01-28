@@ -4,12 +4,17 @@ import UIKit
 protocol AddItemViewControllerDelegate: class {
     func addItemViewControllerDidCancel(_ controller: AddItemVC)
     func addItemViewController(_ controller: AddItemVC, didFinishAdding item: CheckListItem)
+    func addItemViewController(_ controller: AddItemVC, didFinsihEditing item: CheckListItem)
 }
 
 class AddItemVC: UITableViewController {
     
     // delegate for our protocol to be able to call its function from this VC
     weak var delegate: AddItemViewControllerDelegate?
+    
+    // properties to recieve the data that's gonna be passed to this VC
+    weak var todoList: TodoList?
+    weak var itemToEdit: CheckListItem?
     
     @IBOutlet weak var cancelBarButton: UIBarButtonItem!
     @IBOutlet weak var addBarButton: UIBarButtonItem!
@@ -21,6 +26,16 @@ class AddItemVC: UITableViewController {
         navigationItem.largeTitleDisplayMode = .never
         // assign this class to be the delegate of UITextFieldDelegate in the extension
         textField.delegate = self
+        
+        /** if there's an item to edit then we are editing item rn not adding new one **/
+        if let item = itemToEdit {
+            // change the nav bar title
+            title = "Edit Item"
+            // get the text that's in the item to edit it
+            textField.text = item.text
+            // enable the add bar button
+            addBarButton.isEnabled = true
+        }
     }
     
     // make the keyboard appear automatically instead of clicking on the text field to do so
@@ -30,22 +45,34 @@ class AddItemVC: UITableViewController {
         textField.becomeFirstResponder()
     }
 
+    // button responsible for adding new item or editing an existing one
     @IBAction func done(_ sender: Any) {
-        navigationController?.popViewController(animated: true)
-        // create new item and add it
-        let item = CheckListItem()
-        if let textFieldText = textField.text {
-            item.text = textFieldText
+        /** press to edit an existing item **/
+        // if there was an item to edit from the previous VC, and a text in the text field of this current Vc
+        if let item = itemToEdit, let text = textField.text {
+            // set the text in the text field to be the new value for the item
+            item.text = text
+            // call this method to finisi editing
+            delegate?.addItemViewController(self, didFinsihEditing: item)
+        } else {
+            /** press to add a new item **/
+            // if it's a new item and
+            if let item = todoList?.newTodo() {
+                // if there was text in the text field
+                if let textFieldText = textField.text {
+                    // set that text to be the text of that new item
+                    item.text = textFieldText
+                }
+                // set this to false
+                item.checked = false
+                // call this method to add the item we created to the previous VC
+                delegate?.addItemViewController(self, didFinishAdding: item)
+            }
         }
-        item.checked = false
-        // call this method to add the item we created to the previous VC
-        delegate?.addItemViewController(self, didFinishAdding: item)
     }
     
     // dismiss the current VC
     @IBAction func cancel(_ sender: Any) {
-        // pop the current VC and go back to the previous one
-        navigationController?.popViewController(animated: true)
         // call this method to dismiss this VC and go back to the previous one
         delegate?.addItemViewControllerDidCancel(self)
     }
