@@ -120,17 +120,17 @@ class CheckListVC: UITableViewController {
         /** this identifier is for adding new item **/
         if segue.identifier == "AddItemSegue" {
             // as? cause destination returns a UI which must be casted
-            // AddItemViewController is gonna be instance of the destination VC
-            if let AddItemViewController = segue.destination as? AddItemVC {
+            // itemDetailViewController is gonna be instance of the destination VC
+            if let itemDetailViewController = segue.destination as? ItemDetailVC {
                 // set this CheckListVC to be the delegate for AddItemVC
-                AddItemViewController.delegate = self
+                itemDetailViewController.delegate = self
                 // assign the data (todoList of this current VC) to the todoList property of that destination
-                AddItemViewController.todoList = todoList
+                itemDetailViewController.todoList = todoList
             }
             /** this identifier is for editing an existing item **/
         } else if segue.identifier == "EditItemSegue" {
-            // AddItemViewController is gonna be instance of the destination VC
-            if let AddItemViewController = segue.destination as? AddItemVC {
+            // itemDetailViewController is gonna be instance of the destination VC
+            if let itemDetailViewController = segue.destination as? ItemDetailVC {
                 // pass the cell the user tapped on to the second VC
                 // this method returns indexPath, pass the cell to it to get where the user taped
                 if let cell = sender as? UITableViewCell,
@@ -138,8 +138,8 @@ class CheckListVC: UITableViewController {
                     // now get the item of that indexPath
                     let item = todoList.todos[indexPath.row]
                     // pass that item to the destination VC's property
-                    AddItemViewController.itemToEdit = item
-                    AddItemViewController.delegate = self
+                    itemDetailViewController.itemToEdit = item
+                    itemDetailViewController.delegate = self
                 }
             }
         }
@@ -149,19 +149,18 @@ class CheckListVC: UITableViewController {
 
 // make this class conform to that protocol and implement its methods
 // this VC will implment these 2 methods that will be called in the AddItemVC
-extension CheckListVC: AddItemViewControllerDelegate {
+extension CheckListVC: ItemDetailVCDelegate {
     
     //  dismis the current VC that will call this method which is AddItemVC
-    func addItemViewControllerDidCancel(_ controller: AddItemVC) {
+    func itemDetailViewControllerDidCancel(_ controller: ItemDetailVC) {
         navigationController?.popViewController(animated: true)
     }
     
     // add the new item to the table view of this VC when this method is called from the other one
-    func addItemViewController(_ controller: AddItemVC, didFinishAdding item: CheckListItem) {
+    func itemDetailViewController(_ controller: ItemDetailVC, didFinishAdding item: CheckListItem) {
         // the new position for the new item
-        let rowIndex = todoList.todos.count
-        // add the item to the array in the model
-        todoList.todos.append(item)
+        // cause we already have the new item inside the array
+        let rowIndex = todoList.todos.count - 1
         // the new indexPath for the new item
         let indexPath = IndexPath(row: rowIndex, section: 0)
         // array for the insert table view's method
@@ -173,7 +172,7 @@ extension CheckListVC: AddItemViewControllerDelegate {
     }
     
     // update the table row that represent that checklist item
-    func addItemViewController(_ controller: AddItemVC, didFinsihEditing item: CheckListItem) {
+    func itemDetailViewController(_ controller: ItemDetailVC, didFinsihEditing item: CheckListItem) {
         // search for the item
         if let index = todoList.todos.index(of: item) {
             // get the indexPath based on the index we created

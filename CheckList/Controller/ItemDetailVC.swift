@@ -1,16 +1,16 @@
 import UIKit
 
 // protocol that only works on classes
-protocol AddItemViewControllerDelegate: class {
-    func addItemViewControllerDidCancel(_ controller: AddItemVC)
-    func addItemViewController(_ controller: AddItemVC, didFinishAdding item: CheckListItem)
-    func addItemViewController(_ controller: AddItemVC, didFinsihEditing item: CheckListItem)
+protocol ItemDetailVCDelegate: class {
+    func itemDetailViewControllerDidCancel(_ controller: ItemDetailVC)
+    func itemDetailViewController(_ controller: ItemDetailVC, didFinishAdding item: CheckListItem)
+    func itemDetailViewController(_ controller: ItemDetailVC, didFinsihEditing item: CheckListItem)
 }
 
-class AddItemVC: UITableViewController {
+class ItemDetailVC: UITableViewController {
     
     // delegate for our protocol to be able to call its function from this VC
-    weak var delegate: AddItemViewControllerDelegate?
+    weak var delegate: ItemDetailVCDelegate?
     
     // properties to recieve the data that's gonna be passed to this VC
     weak var todoList: TodoList?
@@ -53,7 +53,7 @@ class AddItemVC: UITableViewController {
             // set the text in the text field to be the new value for the item
             item.text = text
             // call this method to finisi editing
-            delegate?.addItemViewController(self, didFinsihEditing: item)
+            delegate?.itemDetailViewController(self, didFinsihEditing: item)
         } else {
             /** press to add a new item **/
             // if it's a new item and
@@ -66,7 +66,7 @@ class AddItemVC: UITableViewController {
                 // set this to false
                 item.checked = false
                 // call this method to add the item we created to the previous VC
-                delegate?.addItemViewController(self, didFinishAdding: item)
+                delegate?.itemDetailViewController(self, didFinishAdding: item)
             }
         }
     }
@@ -74,7 +74,7 @@ class AddItemVC: UITableViewController {
     // dismiss the current VC
     @IBAction func cancel(_ sender: Any) {
         // call this method to dismiss this VC and go back to the previous one
-        delegate?.addItemViewControllerDidCancel(self)
+        delegate?.itemDetailViewControllerDidCancel(self)
     }
     
     // determine whether the row can be selected or not
@@ -85,7 +85,7 @@ class AddItemVC: UITableViewController {
 }
 
 // extend our AddItemVC Class
-extension AddItemVC: UITextFieldDelegate {
+extension ItemDetailVC: UITextFieldDelegate {
     
     // make the keyboard goes away once user click on done key
     // Asks the delegate if the text field should process the pressing of the return button.
