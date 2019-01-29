@@ -91,24 +91,23 @@ class CheckListVC: UITableViewController {
     // configure the text of the label in each cell
     // pass the checklist item to it to get its text
     func configureText(for cell: UITableViewCell, with item: CheckListItem) {
-        // this method returns a view based on its tag that's given in storyboard
-        // if there's a view that's tag is 1000 set it as value of the label variable
-        if let label = cell.viewWithTag(1000) as? UILabel {
-            // set the label's text of each cell to the text of each item in the array of the todolist model
-            label.text = item.text
+        // cast the cell to the cell class we created
+        if let checkmarkCell = cell as? CheckListCell {
+            // now access its todoTextLabel to set its text to be the text of the item
+            checkmarkCell.todoTextLabel.text = item.text
         }
     }
 
     // confiure the checkmarks in each cell
     // pass the checklist item to it to toggle its statue
     func configureCheckMark(for cell: UITableViewCell, with item: CheckListItem) {
-        guard let checkmark = cell.viewWithTag(1001) as? UILabel else {
+        guard let checkmarkCell = cell as? CheckListCell else {
             return
         }
         if item.checked {
-            checkmark.text = "√"
+            checkmarkCell.checkmarkLabel.text = "√"
         } else {
-            checkmark.text = ""
+            checkmarkCell.checkmarkLabel.text = ""
         }
         // then change the statue of the checked attibute in the item model class cause the cell's clicked
         item.toggleChecked()
