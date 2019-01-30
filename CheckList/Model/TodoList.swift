@@ -38,6 +38,19 @@ class TodoList {
         return item
     }
     
+    // move items inside the array in the model
+    func move(item: CheckListItem, to index: Int) {
+        // get the current index of our item
+        // if the item isn't there we will just return instead of the app crashes
+        guard let currentIndex = todos.index(of: item) else {
+            return
+        }
+        // remove that item from its place in the array
+        todos.remove(at: currentIndex)
+        // then insert it again in a new position
+        todos.insert(item, at: index)
+    }
+    
     // generate random titles for the each new item
     private func randomTitle() -> String {
         // array of some titles

@@ -32,6 +32,18 @@ class CheckListVC: UITableViewController {
         
         // access the navigation bar in cide
         navigationController?.navigationBar.prefersLargeTitles = true
+        
+        // put an edit button on the left side of the navigation
+        // editButtonItem is a pre-made button that can be toggled between "edit" and "done"
+        navigationItem.leftBarButtonItem = editButtonItem
+    }
+    
+    // sets whether VC shows an editable view, which is the table view
+    override func setEditing(_ editing: Bool, animated: Bool) {
+        super.setEditing(editing, animated: true)
+        // get the table view into and out of the edit mode
+        // .isEditing is a boolean value that determines whether the table view is in editing mode or not
+        tableView.setEditing(tableView.isEditing, animated: true)
     }
     
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -69,6 +81,8 @@ class CheckListVC: UITableViewController {
         if let cell = tableView.cellForRow(at: indexPath) {
             // hold each item in a variable item
             let item = todoList.todos[indexPath.row]
+            // toggle the cjeckmark on the item
+            item.toggleChecked()
             // configure the checkmark of every cell once it's clicked
             configureCheckMark(for: cell, with: item)
             // deselect the row that you selected, this remove the highlight that was on the cell when it's selected
@@ -86,7 +100,17 @@ class CheckListVC: UITableViewController {
         tableView.deleteRows(at: indexPaths, with: .automatic)
     }
     
+    // move the rows in the table view by drag and drop them
+    override func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+        // call this method to move the position of the item in the table view in the array of the model too
+        todoList.move(item: todoList.todos[sourceIndexPath.row], to: destinationIndexPath.row)
+        tableView.reloadData()
+    }
+    
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    
+    //MARK: - Configuration Methods:
+    //////////////////////////////////
     
     // configure the text of the label in each cell
     // pass the checklist item to it to get its text
@@ -109,9 +133,12 @@ class CheckListVC: UITableViewController {
         } else {
             checkmarkCell.checkmarkLabel.text = ""
         }
-        // then change the statue of the checked attibute in the item model class cause the cell's clicked
-        item.toggleChecked()
     }
+    
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    
+    //MARK: - Segues:
+    ///////////////////
     
     // a method that's called when you wanna go from VC to another
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -145,6 +172,11 @@ class CheckListVC: UITableViewController {
     }
     
 }
+
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    //MARK: - Extensions:
+    ///////////////////////
 
 // make this class conform to that protocol and implement its methods
 // this VC will implment these 2 methods that will be called in the AddItemVC
@@ -185,6 +217,5 @@ extension CheckListVC: ItemDetailVCDelegate {
         // finally pop the VC ater we're done
         navigationController?.popViewController(animated: true)
     }
-    
     
 }
