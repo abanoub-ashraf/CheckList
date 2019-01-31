@@ -21,6 +21,28 @@ class CheckListVC: UITableViewController {
         tableView.insertRows(at: indexPaths, with: .automatic)
     }
     
+    // delete multiple items
+    @IBAction func deleteItems(_ sender: Any) {
+        // get a list of the selected rows
+        if let selectedRows = tableView.indexPathsForSelectedRows {
+            // array of the items we will delete
+            var items = [CheckListItem]()
+            // loop throught the selected rows
+            for indexPath in selectedRows {
+                // the items that are in those selected rows will get appeneded to the items array to get removed
+                items.append(todoList.todos[indexPath.row])
+            }
+            // now delete those selected items from the model
+            // pass the array of the selected items to remove those items from the model
+            todoList.remove(items: items)
+            // now update the table view and delete the selected rows
+            tableView.beginUpdates()
+            // delete the rows we selected
+            tableView.deleteRows(at: selectedRows, with: .automatic)
+            tableView.endUpdates()
+        }
+    }
+    
     // initializer for the TodoList's object
     required init?(coder aDecoder: NSCoder) {
         todoList = TodoList()
@@ -33,11 +55,17 @@ class CheckListVC: UITableViewController {
         // access the navigation bar in cide
         navigationController?.navigationBar.prefersLargeTitles = true
         
+        /**this is for moving rows**/
         // put an edit button on the left side of the navigation
         // editButtonItem is a pre-made button that can be toggled between "edit" and "done"
         navigationItem.leftBarButtonItem = editButtonItem
+        
+        /**this is for deleting rows**/
+        // A Boolean value that controls whether users can select many cells simultaneously in editing mode.
+        tableView.allowsMultipleSelectionDuringEditing = true
     }
     
+    /**this is for moving rows**/
     // sets whether VC shows an editable view, which is the table view
     override func setEditing(_ editing: Bool, animated: Bool) {
         super.setEditing(editing, animated: true)
@@ -77,6 +105,10 @@ class CheckListVC: UITableViewController {
     
     // interact with the cell when it got selected
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        // if the table is in editing mode we will ignore that tap on each cell
+        if tableView.isEditing {
+            return
+        }
         // this method returns optional cell cause there might or might not be a cell to return in that indexPath
         if let cell = tableView.cellForRow(at: indexPath) {
             // hold each item in a variable item
