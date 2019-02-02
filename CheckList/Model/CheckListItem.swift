@@ -4,7 +4,7 @@ import Foundation
 class CheckListItem: NSObject {
     
     // attributes of each item inside the lsit
-    var text = ""
+    @objc var text = ""
     var checked = false
     
     // the model should handle its own statue

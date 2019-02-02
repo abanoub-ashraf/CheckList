@@ -5,6 +5,14 @@ class CheckListVC: UITableViewController {
     // integrate the Model todoList's class in this Controller class
     var todoList: TodoList
     
+    /***************************************************************
+     /*to organize the items inside the table view in sections*/
+     //////////////////////////////////////////////////////////////
+     array of arrays, each letter in alphapit will have
+     an array of the items that thier names start with that letter
+     **************************************************************/
+    var tableData: [[CheckListItem?]?]!
+    
     // add new checklist item to the table view
     @IBAction func addItem(_ sender: Any) {
         // create new row for the new indexPath we'll create, then add it to the end of the table
@@ -63,6 +71,44 @@ class CheckListVC: UITableViewController {
         /**this is for deleting rows**/
         // A Boolean value that controls whether users can select many cells simultaneously in editing mode.
         tableView.allowsMultipleSelectionDuringEditing = true
+        
+        /**organize the table view's items in sections**/
+        // the count of the titles of the sections in the table view
+        /*****************************************************************************
+         * UILocalizedIndexedCollation: object provides ways to organize, sort,
+           and localize the data for a table view that has a section index.
+         * current: Returns an indexed-collation instance for the current table view.
+         * sectionTitles: Returns the list of section titles for the table view.
+         * count: the number of the sectionTitles.
+         ****************************************************************************/
+        let sectionTitleCount = UILocalizedIndexedCollation.current().sectionTitles.count
+        
+        /************************************************************************************************
+         * array of all sections in the table view
+         * intialize it to have no repeted values by "nil", and its count gonna be the sectionTitleCount
+         * this will create 26 individual sections based on 26 alphabit letters
+         ***********************************************************************************************/
+        var allSections = [[CheckListItem?]?](repeating: nil, count: sectionTitleCount)
+        
+        // to get each section and deal with it
+        var sectionNumber = 0
+        
+        // reference to my collation instance
+        let collation = UILocalizedIndexedCollation.current()
+        
+        // loop through all the todo items
+        for item in todoList.todos {
+            // get the current section number, for the item, and the item name to search on
+            sectionNumber = collation.section(for: item, collationStringSelector: #selector(getter:CheckListItem.text))
+            // if there was no array for the section, we will create one
+            if allSections[sectionNumber] == nil {
+                allSections[sectionNumber] = [CheckListItem?]()
+            }
+            // then append items to it
+            allSections[sectionNumber]!.append(item)
+        }
+        // then pass that array to the tableData
+        tableData = allSections
     }
     
     /**this is for moving rows**/
@@ -81,8 +127,8 @@ class CheckListVC: UITableViewController {
     
     // how many rows to display
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // the number of the items inside the todos array in the TodoList Class Model
-        return todoList.todos.count
+        // if it's nil return 0 else return the count
+        return tableData[section] == nil ? 0 : tableData[section]!.count
     }
     
     // the content of each cell
@@ -90,11 +136,15 @@ class CheckListVC: UITableViewController {
         // create a cell then keep re-using it
         let cell = tableView.dequeueReusableCell(withIdentifier: "CheckListItem", for: indexPath)
         // hold each item in each row in this variable item
-        let item = todoList.todos[indexPath.row]
-        // pass the item to this method to configure the text in each cell
-        configureText(for: cell, with: item)
-        // pass the cell to this method to configure the checkmark in eah cell
-        configureCheckMark(for: cell, with: item)
+        //let item = todoList.todos[indexPath.row]
+        
+        if let item = tableData[indexPath.section]?[indexPath.row] {
+            // pass the item to this method to configure the text in each cell
+            configureText(for: cell, with: item)
+            // pass the cell to this method to configure the checkmark in eah cell
+            configureCheckMark(for: cell, with: item)
+        }
+        
         return cell
     }
     
@@ -201,6 +251,31 @@ class CheckListVC: UITableViewController {
                 }
             }
         }
+    }
+    
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    
+    //MARK: - Methods for Organizing TableView Items in Sections:
+    ///////////////////////////////////////////////////////////////
+    
+    // return the number of the sections
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        return tableData.count
+    }
+    
+    // return the titles of the sections
+    override func sectionIndexTitles(for tableView: UITableView) -> [String]? {
+        return UILocalizedIndexedCollation.current().sectionTitles
+    }
+    
+    // return the index of the section having the given title and section title index
+    override func tableView(_ tableView: UITableView, sectionForSectionIndexTitle title: String, at index: Int) -> Int {
+        return UILocalizedIndexedCollation.current().section(forSectionIndexTitle: index)
+    }
+    
+    // return the title of the header of the specified section of the table
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return UILocalizedIndexedCollation.current().sectionTitles[section]
     }
     
 }

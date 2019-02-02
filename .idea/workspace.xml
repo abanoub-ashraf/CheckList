@@ -4,6 +4,7 @@
     <list default="true" id="57fc6b16-4e10-4d90-ac7b-9ea373a44dce" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CheckList.xcodeproj/project.xcworkspace/xcuserdata/Abanoub.xcuserdatad/UserInterfaceState.xcuserstate" beforeDir="false" afterPath="$PROJECT_DIR$/CheckList.xcodeproj/project.xcworkspace/xcuserdata/Abanoub.xcuserdatad/UserInterfaceState.xcuserstate" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CheckList/Controller/CheckListVC.swift" beforeDir="false" afterPath="$PROJECT_DIR$/CheckList/Controller/CheckListVC.swift" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -15,29 +16,30 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/CheckList/CheckListVC.swift">
+        <entry file="file://$PROJECT_DIR$/CheckList/View/CheckListCell.swift">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="40">
-              <caret line="2" column="42" lean-forward="true" selection-start-line="2" selection-start-column="42" selection-end-line="2" selection-end-column="42" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/CheckList/AddItemVC.swift">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-294">
-              <caret line="26" column="4" lean-forward="true" selection-start-line="26" selection-start-column="4" selection-end-line="26" selection-end-column="4" />
+            <state relative-caret-position="200">
+              <caret line="10" lean-forward="true" selection-start-line="10" selection-end-line="10" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/CheckList/CheckListItem.swift">
+        <entry file="file://$PROJECT_DIR$/CheckList/Model/TodoList.swift">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="300">
-              <caret line="15" selection-start-line="15" selection-end-line="15" />
-            </state>
+            <state relative-caret-position="-1117" />
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/CheckList/Model/CheckListItem.swift">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/CheckList/Controller/CheckListVC.swift">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-2184" />
           </provider>
         </entry>
       </file>
@@ -65,7 +67,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="Cidr.FilesView" />
       <pane id="ProjectPane">
         <subPane>
@@ -79,10 +80,29 @@
               <item name="CheckList" type="1d218c8b:XcodeProjectNode" />
               <item name="CheckList" type="fcab9f18:XcodeViewNode" />
             </path>
+            <path>
+              <item name="" type="efc3779f:XcodeRootNode" />
+              <item name="CheckList" type="1d218c8b:XcodeProjectNode" />
+              <item name="CheckList" type="fcab9f18:XcodeViewNode" />
+              <item name="Controller" type="fcab9f18:XcodeViewNode" />
+            </path>
+            <path>
+              <item name="" type="efc3779f:XcodeRootNode" />
+              <item name="CheckList" type="1d218c8b:XcodeProjectNode" />
+              <item name="CheckList" type="fcab9f18:XcodeViewNode" />
+              <item name="Model" type="fcab9f18:XcodeViewNode" />
+            </path>
+            <path>
+              <item name="" type="efc3779f:XcodeRootNode" />
+              <item name="CheckList" type="1d218c8b:XcodeProjectNode" />
+              <item name="CheckList" type="fcab9f18:XcodeViewNode" />
+              <item name="View" type="fcab9f18:XcodeViewNode" />
+            </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -132,11 +152,12 @@
       <workItem from="1548073219312" duration="1544000" />
       <workItem from="1548244517321" duration="481000" />
       <workItem from="1548489892645" duration="663000" />
+      <workItem from="1549109314805" duration="692000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="7232000" />
+    <option name="totallyTimeSpent" value="7924000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -151,7 +172,7 @@
     <frame x="0" y="23" width="1280" height="777" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.22455573" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.22778675" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Favorites" order="3" side_tool="true" />
@@ -187,33 +208,31 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/CheckList/TodoList.swift">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-146" />
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/CheckList/TodoList.swift" />
     <entry file="file://$PROJECT_DIR$/CheckList/TestVC.swift">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/CheckList/CheckListVC.swift">
+    <entry file="file://$PROJECT_DIR$/CheckList/CheckListVC.swift" />
+    <entry file="file://$PROJECT_DIR$/CheckList/CheckListItem.swift" />
+    <entry file="file://$PROJECT_DIR$/CheckList/AddItemVC.swift" />
+    <entry file="file://$PROJECT_DIR$/CheckList/View/CheckListCell.swift">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="40">
-          <caret line="2" column="42" lean-forward="true" selection-start-line="2" selection-start-column="42" selection-end-line="2" selection-end-column="42" />
+        <state relative-caret-position="200">
+          <caret line="10" lean-forward="true" selection-start-line="10" selection-end-line="10" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/CheckList/CheckListItem.swift">
+    <entry file="file://$PROJECT_DIR$/CheckList/Model/TodoList.swift">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="15" selection-start-line="15" selection-end-line="15" />
-        </state>
+        <state relative-caret-position="-1117" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/CheckList/AddItemVC.swift">
+    <entry file="file://$PROJECT_DIR$/CheckList/Model/CheckListItem.swift">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CheckList/Controller/CheckListVC.swift">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-294">
-          <caret line="26" column="4" lean-forward="true" selection-start-line="26" selection-start-column="4" selection-end-line="26" selection-end-column="4" />
-        </state>
+        <state relative-caret-position="-2184" />
       </provider>
     </entry>
   </component>
