@@ -137,8 +137,11 @@ class CheckListVC: UITableViewController {
     
     // move the rows in the table view by drag and drop them
     override func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
-        // call this method to move the position of the item in the table view in the array of the model too
-        //todoList.move(item: todoList.todos[sourceIndexPath.row], to: destinationIndexPath.row)
+        if let srcPriority = priorityForSectionIndex(sourceIndexPath.section),
+           let destPriority = priorityForSectionIndex(destinationIndexPath.section) {
+            let item = todoList.todoList(for: srcPriority)[sourceIndexPath.row]
+            todoList.move(item: item, from: srcPriority, at: sourceIndexPath.row, to: destPriority, at: destinationIndexPath.row)
+        }
         tableView.reloadData()
     }
     

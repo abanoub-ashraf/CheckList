@@ -51,16 +51,32 @@ class TodoList {
     }
     
     // a convienient way to add new todo item
-    func addTodo(_ item: CheckListItem, for priority: Priority) {
+    func addTodo(_ item: CheckListItem, for priority: Priority, at index: Int = -1) {
         switch priority {
             case .high:
-                return highPriorityTodos.append(item)
+                if index < 0 {
+                    highPriorityTodos.append(item)
+                } else {
+                    highPriorityTodos.insert(item, at: index)
+                }
             case .medium:
-                return mediumPriorityTodos.append(item)
+                if index < 0 {
+                    mediumPriorityTodos.append(item)
+                } else {
+                    mediumPriorityTodos.insert(item, at: index)
+                }
             case .low:
-                return lowPriorityTodos.append(item)
+                if index < 0 {
+                    lowPriorityTodos.append(item)
+                } else {
+                    lowPriorityTodos.insert(item, at: index)
+                }
             case .no:
-                return noPriorityTodos.append(item)
+                if index < 0 {
+                    noPriorityTodos.append(item)
+                } else {
+                    noPriorityTodos.insert(item, at: index)
+                }
         }
     }
     
@@ -90,17 +106,9 @@ class TodoList {
         return item
     }
     
-    // move items inside the array in the model
-    func move(item: CheckListItem, to index: Int) {
-//        // get the current index of our item
-//        // if the item isn't there we will just return instead of the app crashes
-//        guard let currentIndex = todos.index(of: item) else {
-//            return
-//        }
-//        // remove that item from its place in the array
-//        todos.remove(at: currentIndex)
-//        // then insert it again in a new position
-//        todos.insert(item, at: index)
+    func move(item: CheckListItem, from sourcePriority: Priority, at sourceIndex: Int, to destinationPriority: Priority, at destinationIndex: Int) {
+        remove(item, from: sourcePriority, at: sourceIndex)
+        addTodo(item, for: destinationPriority, at: destinationIndex)
     }
     
     // remove the item based on its priority
