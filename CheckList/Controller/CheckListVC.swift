@@ -5,19 +5,16 @@ class CheckListVC: UITableViewController {
     // integrate the Model todoList's class in this Controller class
     var todoList: TodoList
     
-    /***************************************************************
-     /*to organize the items inside the table view in sections*/
-     //////////////////////////////////////////////////////////////
-     array of arrays, each letter in alphapit will have
-     an array of the items that thier names start with that letter
-     **************************************************************/
-    var tableData: [[CheckListItem?]?]!
+    // return todolist priority
+    private func priorityForSectionIndex(_ index: Int) -> TodoList.Priority? {
+        return TodoList.Priority(rawValue: index)
+    }
     
     // add new checklist item to the table view
     @IBAction func addItem(_ sender: Any) {
         // create new row for the new indexPath we'll create, then add it to the end of the table
         // the table gets its size from the size of the todos array so that's the end of the table
-        let newRowIndex = todoList.todos.count
+        let newRowIndex = todoList.todoList(for: .medium).count
         // _ means idc about the object returns from this method just call it and that's it
         _ = todoList.newTodo()
         // create new indexPath for the new item, to add it to the table view
@@ -33,19 +30,16 @@ class CheckListVC: UITableViewController {
     @IBAction func deleteItems(_ sender: Any) {
         // get a list of the selected rows
         if let selectedRows = tableView.indexPathsForSelectedRows {
-            // array of the items we will delete
-            var items = [CheckListItem]()
             // loop throught the selected rows
             for indexPath in selectedRows {
-                // the items that are in those selected rows will get appeneded to the items array to get removed
-                items.append(todoList.todos[indexPath.row])
+                if let priority = priorityForSectionIndex(indexPath.section) {
+                    let todos = todoList.todoList(for: priority)
+                    let rowToDelete = indexPath.row > todos.count - 1 ? todos.count - 1 : indexPath.row
+                    let item = todos[rowToDelete]
+                    todoList.remove(item, from: priority, at: rowToDelete)
+                }
             }
-            // now delete those selected items from the model
-            // pass the array of the selected items to remove those items from the model
-            todoList.remove(items: items)
-            // now update the table view and delete the selected rows
             tableView.beginUpdates()
-            // delete the rows we selected
             tableView.deleteRows(at: selectedRows, with: .automatic)
             tableView.endUpdates()
         }
@@ -71,44 +65,6 @@ class CheckListVC: UITableViewController {
         /**this is for deleting rows**/
         // A Boolean value that controls whether users can select many cells simultaneously in editing mode.
         tableView.allowsMultipleSelectionDuringEditing = true
-        
-        /**organize the table view's items in sections**/
-        // the count of the titles of the sections in the table view
-        /*****************************************************************************
-         * UILocalizedIndexedCollation: object provides ways to organize, sort,
-           and localize the data for a table view that has a section index.
-         * current: Returns an indexed-collation instance for the current table view.
-         * sectionTitles: Returns the list of section titles for the table view.
-         * count: the number of the sectionTitles.
-         ****************************************************************************/
-        let sectionTitleCount = UILocalizedIndexedCollation.current().sectionTitles.count
-        
-        /************************************************************************************************
-         * array of all sections in the table view
-         * intialize it to have no repeted values by "nil", and its count gonna be the sectionTitleCount
-         * this will create 26 individual sections based on 26 alphabit letters
-         ***********************************************************************************************/
-        var allSections = [[CheckListItem?]?](repeating: nil, count: sectionTitleCount)
-        
-        // to get each section and deal with it
-        var sectionNumber = 0
-        
-        // reference to my collation instance
-        let collation = UILocalizedIndexedCollation.current()
-        
-        // loop through all the todo items
-        for item in todoList.todos {
-            // get the current section number, for the item, and the item name to search on
-            sectionNumber = collation.section(for: item, collationStringSelector: #selector(getter:CheckListItem.text))
-            // if there was no array for the section, we will create one
-            if allSections[sectionNumber] == nil {
-                allSections[sectionNumber] = [CheckListItem?]()
-            }
-            // then append items to it
-            allSections[sectionNumber]!.append(item)
-        }
-        // then pass that array to the tableData
-        tableData = allSections
     }
     
     /**this is for moving rows**/
@@ -127,24 +83,22 @@ class CheckListVC: UITableViewController {
     
     // how many rows to display
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // if it's nil return 0 else return the count
-        return tableData[section] == nil ? 0 : tableData[section]!.count
+        if let priority = priorityForSectionIndex(section) {
+            return todoList.todoList(for: priority).count
+        }
+        return 0
     }
     
     // the content of each cell
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // create a cell then keep re-using it
         let cell = tableView.dequeueReusableCell(withIdentifier: "CheckListItem", for: indexPath)
-        // hold each item in each row in this variable item
-        //let item = todoList.todos[indexPath.row]
-        
-        if let item = tableData[indexPath.section]?[indexPath.row] {
-            // pass the item to this method to configure the text in each cell
+        if let priority = priorityForSectionIndex(indexPath.section) {
+            let items = todoList.todoList(for: priority)
+            let item = items[indexPath.row]
             configureText(for: cell, with: item)
-            // pass the cell to this method to configure the checkmark in eah cell
             configureCheckMark(for: cell, with: item)
         }
-        
         return cell
     }
     
@@ -161,31 +115,30 @@ class CheckListVC: UITableViewController {
         }
         // this method returns optional cell cause there might or might not be a cell to return in that indexPath
         if let cell = tableView.cellForRow(at: indexPath) {
-            // hold each item in a variable item
-            let item = todoList.todos[indexPath.row]
-            // toggle the cjeckmark on the item
-            item.toggleChecked()
-            // configure the checkmark of every cell once it's clicked
-            configureCheckMark(for: cell, with: item)
-            // deselect the row that you selected, this remove the highlight that was on the cell when it's selected
-            tableView.deselectRow(at: indexPath, animated: true)
+            if let priority = priorityForSectionIndex(indexPath.section) {
+                let items = todoList.todoList(for: priority)
+                let item = items[indexPath.row]
+                item.toggleChecked()
+                configureCheckMark(for: cell, with: item)
+                tableView.deselectRow(at: indexPath, animated: true)
+            }
         }
     }
     
     // delete the cell when it gets swiped
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        // delete from the model itself using the indexPath
-        todoList.todos.remove(at: indexPath.row)
-        // now delete from the table view on screen using same indexPath ofc
-        let indexPaths = [indexPath]
-        // the delete method requires array of indexPaths too
-        tableView.deleteRows(at: indexPaths, with: .automatic)
+        if let priority = priorityForSectionIndex(indexPath.section) {
+            let item = todoList.todoList(for: priority)[indexPath.row]
+            todoList.remove(item, from: priority, at: indexPath.row)
+            let indexPaths = [indexPath]
+            tableView.deleteRows(at: indexPaths, with: .automatic)
+        }
     }
     
     // move the rows in the table view by drag and drop them
     override func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
         // call this method to move the position of the item in the table view in the array of the model too
-        todoList.move(item: todoList.todos[sourceIndexPath.row], to: destinationIndexPath.row)
+        //todoList.move(item: todoList.todos[sourceIndexPath.row], to: destinationIndexPath.row)
         tableView.reloadData()
     }
     
@@ -242,9 +195,9 @@ class CheckListVC: UITableViewController {
                 // pass the cell the user tapped on to the second VC
                 // this method returns indexPath, pass the cell to it to get where the user taped
                 if let cell = sender as? UITableViewCell,
-                   let indexPath = tableView.indexPath(for: cell) {
-                    // now get the item of that indexPath
-                    let item = todoList.todos[indexPath.row]
+                   let indexPath = tableView.indexPath(for: cell),
+                   let priority = priorityForSectionIndex(indexPath.section) {
+                    let item = todoList.todoList(for: priority)[indexPath.row]
                     // pass that item to the destination VC's property
                     itemDetailViewController.itemToEdit = item
                     itemDetailViewController.delegate = self
@@ -260,22 +213,26 @@ class CheckListVC: UITableViewController {
     
     // return the number of the sections
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return tableData.count
+        return TodoList.Priority.allCases.count
     }
     
-    // return the titles of the sections
-    override func sectionIndexTitles(for tableView: UITableView) -> [String]? {
-        return UILocalizedIndexedCollation.current().sectionTitles
-    }
-    
-    // return the index of the section having the given title and section title index
-    override func tableView(_ tableView: UITableView, sectionForSectionIndexTitle title: String, at index: Int) -> Int {
-        return UILocalizedIndexedCollation.current().section(forSectionIndexTitle: index)
-    }
-    
-    // return the title of the header of the specified section of the table
+    // return a title for every section in the table view
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return UILocalizedIndexedCollation.current().sectionTitles[section]
+        var title: String? = nil
+        // get the priority
+        if let priority = priorityForSectionIndex(section) {
+            switch priority {
+                case .high:
+                    title = "High Priority Todos"
+                case .medium:
+                    title = "Medium Priority Todos"
+                case .low:
+                    title = "Low Priotiy Todos"
+                case .no:
+                    title = "Someday Todo Items"
+            }
+        }
+        return title
     }
     
 }
@@ -298,9 +255,9 @@ extension CheckListVC: ItemDetailVCDelegate {
     func itemDetailViewController(_ controller: ItemDetailVC, didFinishAdding item: CheckListItem) {
         // the new position for the new item
         // cause we already have the new item inside the array
-        let rowIndex = todoList.todos.count - 1
+        let rowIndex = todoList.todoList(for: .medium).count - 1
         // the new indexPath for the new item
-        let indexPath = IndexPath(row: rowIndex, section: 0)
+        let indexPath = IndexPath(row: rowIndex, section: TodoList.Priority.medium.rawValue)
         // array for the insert table view's method
         let indexPaths = [indexPath]
         // add the item to the table view
@@ -311,17 +268,16 @@ extension CheckListVC: ItemDetailVCDelegate {
     
     // update the table row that represent that checklist item
     func itemDetailViewController(_ controller: ItemDetailVC, didFinsihEditing item: CheckListItem) {
-        // search for the item
-        if let index = todoList.todos.index(of: item) {
-            // get the indexPath based on the index we created
-            let indexPath = IndexPath(row: index, section: 0)
-            // get the cell based on that indexPath
-            if let cell = tableView.cellForRow(at: indexPath) {
-                // configure the text of that cell
-                configureText(for: cell, with: item)
+        
+        for priority in TodoList.Priority.allCases {
+            let currentList = todoList.todoList(for: priority)
+            if let index = currentList.index(of: item) {
+                let indexPath = IndexPath(row: index, section: priority.rawValue)
+                if let cell = tableView.cellForRow(at: indexPath) {
+                    configureText(for: cell, with: item)
+                }
             }
         }
-        // finally pop the VC ater we're done
         navigationController?.popViewController(animated: true)
     }
     
